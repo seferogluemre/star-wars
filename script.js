@@ -194,3 +194,29 @@ function createFilterButton() {
 }
 
 let filteredHomeworld;
+
+function filterCharacters(homeworld) {
+  const filteredCharacters = characters.filter(
+    (character) => character.homeworld == homeworld
+  );
+  charactersDiv.innerHTML = filteredCharacters.map(
+    (
+      character
+    ) => ` <div class="col-lg-4 col-sm-6 mb-5" id="filterDiv" data-id="${character.homeworld}">
+          <div class="card bg-black text-white border-light" style="width: 18rem;">
+            <img src="${character.pic}" class="card-img-top" alt="..." style="height: 350px;">
+            <div class="card-body">
+              <p class="card-text">${character.name}</p>
+              <p class="card-text">${character.homeworld}</p>
+            </div>
+          </div>
+        </div>`
+  );
+}
+// Event listener for radio buttons
+FilterCharactersDiv.addEventListener("change", (event) => {
+  if (event.target.name === "exampleRadioInput") {
+    const selectedHomeworldId = event.target.value;
+    filterCharacters(selectedHomeworldId);
+  }
+});
