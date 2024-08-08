@@ -196,10 +196,10 @@ function createFilterButton() {
 let filteredHomeworld;
 
 function filterCharacters(homeworld) {
-  const filteredCharacters = characters.filter(
+  filteredHomeworld = characters.filter(
     (character) => character.homeworld == homeworld
   );
-  charactersDiv.innerHTML = filteredCharacters.map(
+  charactersDiv.innerHTML = filteredHomeworld.map(
     (
       character
     ) => ` <div class="col-lg-4 col-sm-6 mb-5" id="filterDiv" data-id="${character.homeworld}">
@@ -213,6 +213,7 @@ function filterCharacters(homeworld) {
         </div>`
   );
 }
+
 // Event listener for radio buttons
 FilterCharactersDiv.addEventListener("change", (event) => {
   if (event.target.name === "exampleRadioInput") {
