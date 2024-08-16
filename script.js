@@ -128,12 +128,12 @@ const FilterCharactersDiv = document.getElementById("filter-characters");
 const HideCharacterButton = document.getElementById("galacticButtonHide");
 
 let charactersRender = false;
-
 // Karakter Gizleme Ve Gösterme
 function toggleRender() {
+  createInputFilter();
   if (charactersRender) {
-    charactersDiv.innerHTML = "";
     charactersRender = false;
+    charactersDiv.innerHTML = "";
     FilterCharactersDiv.innerHTML = "";
     CharacterButton.textContent = "Click to Enter Galactic Age";
     filterBtnDiv.innerHTML = "";
@@ -154,47 +154,26 @@ function toggleRender() {
       document.getElementById("galaxy").style.display = "flex";
     });
     CharacterButton.textContent = "Hide Characters";
-    createFilterButton();
   }
 }
-
 // Radio oluşturmak İçin Her HomeWorld Datayı map ile döndük
 const characterHomeWorldData = characters.map(
   (character) => character.homeworld
 );
 //HomeWorld Datasını Aldıktan sonra tekrarsız listeleme için Set Dizisinin İçine aldık
 const uniqueHomeWorld = [...new Set(characterHomeWorldData)];
-
-// Herbir HomeWorld Kadar Radio Buton Oluşturma
 function createInputFilter() {
-  const FilterButton = document.getElementById("filter-button");
   FilterCharactersDiv.innerHTML = "";
   uniqueHomeWorld.forEach((homeworld) => {
     FilterCharactersDiv.innerHTML += `
            <div class="form-check mb-4 col-lg-3 col-md-6 col-sm-12">
-          <input type="radio" class="form-check-input" value="${homeworld}" name="exampleRadioInput"
-          value="${homeworld}">
+          <input type="radio" class="form-check-input" value="${homeworld}" name="exampleRadioInput">
           <label for="" class="form-check-label text-white fs-6">${homeworld}</label>
         </div>
     `;
   });
 }
-
-// Create Filter Button when ToggleRender is triggered
-function createFilterButton() {
-  filterBtnDiv.innerHTML += `<div class="row-col-lg-4 
-    justify-content-center text-center">
-    <button
-    type="button"
-    onclick="createInputFilter()" 
-    class="btn btn-outline-light p-3 mb-5"
-    id="filter-button">
-    Filter Characters 
-    </button> </div>`;
-}
-
 let filteredHomeworld;
-
 function filterCharacters(homeworld) {
   filteredHomeworld = characters.filter(
     (character) => character.homeworld == homeworld
@@ -213,7 +192,6 @@ function filterCharacters(homeworld) {
         </div>`
   );
 }
-
 // Event listener for radio buttons
 FilterCharactersDiv.addEventListener("change", (event) => {
   if (event.target.name === "exampleRadioInput") {
